@@ -1,24 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Hero from "./components/Hero";
+import Nav from "./components/Nav";
+import SearchContainer from "./components/SearchContainer";
+import Star from "./components/Star";
+import StyledApp from "./styles/App.styled";
+import GlobalStyle from "./styles/Global.styled";
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <StyledApp>
+      <GlobalStyle />
+      <Nav />
+      <Hero/>
+      <Star/>
+      <SearchContainer/>
+    </StyledApp>
   );
 }
 
