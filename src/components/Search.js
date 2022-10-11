@@ -1,4 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React from "react";
 import StyledSearch from "../styles/Search.styled";
@@ -8,28 +7,25 @@ import dataStore from "./ArtistoStore";
 const Search = () => {
   const inputData = dataStore((state) => state.inputData);
   const updatedInputData = dataStore((state) => state.updatedInputData);
-  const apiData = dataStore((state) => state.apiData);
 
-  const filteredData = dataStore((state) => state.filteredData);
   const updatedFilteredData = dataStore((state) => state.updatedFilteredData);
 
-  const searchApiUrl = `https://api.artic.edu/api/v1/artworks/search?q=${inputData}`
-  const {isLoading,error, data} = useQuery(["searchQuery"], 
-    async () => {
-      const response = await axios.get(searchApiUrl);
-      return response.data
+  const searchApiUrl = `https://api.artic.edu/api/v1/artworks/search?q=${inputData}`;
 
+  //Get search data from the search api
+  const getData = async () => {
+    await axios.get(searchApiUrl).then((response) => {
+      updatedFilteredData(response.data);
+    });
+  };
+
+  //search for data when the enter ker is pressed
+  function filterSearch(event) {
+    if (event.key === "Enter") {
+      getData();
     }
-  )
-  console.log(data?.data);
+  }
 
-  // This function filters the result of the artworks by title
-    // const filteredDataByTitle = data?.data?.filter((value) => {
-    //   return value.title?.toLowerCase().includes(inputData?.toLowerCase());
-    // });
-    
-    console.log(filteredData);
-  
   return (
     <StyledSearch>
       <input
@@ -37,11 +33,13 @@ const Search = () => {
         placeholder="search"
         onChange={(event) => {
           updatedInputData(event.target.value);
-          updatedFilteredData(data);
+          getData();
+        }}
+        onKeyDown={(event) => {
+          filterSearch(event);
         }}
       />
       {inputData !== "" ? "" : <StyledSearchIcon />}
-      <div>{inputData}</div>
     </StyledSearch>
   );
 };

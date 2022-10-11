@@ -3,25 +3,29 @@ import axios from "axios";
 import React from "react";
 import dataStore from "./ArtistoStore";
 
+
 const Art = () => {
   const inputData = dataStore((state) => state.inputData);
-
 
   const apiData = dataStore((state) => state.apiData);
   const updatedApiData = dataStore((state) => state.updatedApiData);
 
   const filteredData = dataStore((state) => state.filteredData);
+  console.log(apiData?.pagination?.next_url);
 
-  // const formattedDates = dataStore((state) => state.formattedDate);
-  // const updatedFormattedDates= dataStore((state) => state.updatedFormattedDate);
+  // function exploreMore(event){
+  //   console.log("explore more");
+  // }
 
-
-
-  console.log(filteredData);
+  const exploreMore = async (paginationUrl) => {
+    await axios.get(paginationUrl).then((response) => {
+      console.log(response.data);
+      console.log(paginationUrl);
+    });
+  };
 
   const apiURL = "https://api.artic.edu/api/v1/artworks";
   const { isLoading, error, data } = useQuery(["artData"], async () => {
-    console.log("rendered");
     const response = await axios.get(apiURL);
     return response.data;
   });
@@ -35,6 +39,8 @@ const Art = () => {
         {"An error has occurred: " + error.message}
       </h1>
     );
+
+    
 
   return (
     <>
@@ -100,6 +106,16 @@ const Art = () => {
               </div>
             );
           })}
+      {/* <Button
+        buttonColor="white"
+        buttonBackgroundColor="#FBAF00"
+        buttonText="Explore arts"
+        buttonTextColor="black"
+        onClick={exploreMore()}
+      /> */}
+      <button onClick={() => {exploreMore(apiData?.pagination?.next_url)}} style={{backgroundColor: "red", border: "none", outline: "2px solid yellow"}}>
+        Explore More
+      </button>
     </>
   );
 };
