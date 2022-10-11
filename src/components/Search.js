@@ -1,3 +1,5 @@
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import React from "react";
 import StyledSearch from "../styles/Search.styled";
 import StyledSearchIcon from "../styles/SearchIcon.styled";
@@ -11,10 +13,20 @@ const Search = () => {
   const filteredData = dataStore((state) => state.filteredData);
   const updatedFilteredData = dataStore((state) => state.updatedFilteredData);
 
+  const searchApiUrl = `https://api.artic.edu/api/v1/artworks/search?q=${inputData}`
+  const {isLoading,error, data} = useQuery(["searchQuery"], 
+    async () => {
+      const response = await axios.get(searchApiUrl);
+      return response.data
+
+    }
+  )
+  console.log(data?.data);
+
   // This function filters the result of the artworks by title
-    const filteredDataByTitle = apiData?.data?.filter((value) => {
-      return value.title?.toLowerCase().includes(inputData?.toLowerCase());
-    });
+    // const filteredDataByTitle = data?.data?.filter((value) => {
+    //   return value.title?.toLowerCase().includes(inputData?.toLowerCase());
+    // });
     
     console.log(filteredData);
   
@@ -25,7 +37,7 @@ const Search = () => {
         placeholder="search"
         onChange={(event) => {
           updatedInputData(event.target.value);
-          updatedFilteredData(filteredDataByTitle);
+          updatedFilteredData(data);
         }}
       />
       {inputData !== "" ? "" : <StyledSearchIcon />}

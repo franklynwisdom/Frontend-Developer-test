@@ -26,12 +26,12 @@ const Hero = () => {
       <StyledHeroImageSection>
         <img className="heroDesign" src={designItem} alt="Hero Design Item" />
         <div>
-          <img className="heroImage" src={heroImage} alt="Hero Section Image" />
+          <img className="heroImage" src={heroImage} alt="Hero Section " />
         </div>
         <img
           className="heroBackgroundImage"
           src={imageBackgroundHero}
-          alt="Hero section background image"
+          alt="Hero section background "
         />
       </StyledHeroImageSection>
     </StyledHero>

@@ -4,6 +4,7 @@ const dataStore = create((set) => ({
     inputData: "",
     apiData: "",
     filteredData: "",
+    // formattedDate:"",
     updatedInputData: (inputInfo) => set((state) => ({
         inputData: state.inputData = inputInfo
     })),
@@ -12,7 +13,10 @@ const dataStore = create((set) => ({
     })),
     updatedFilteredData: (newData) => set((state) => ({
         filteredData: state.filteredData = newData
-    }))
+    })),
+    // updatedFormattedDate: (newDate) => set((state) => ({
+    //     formattedDate: state.formattedDate = newDate
+    // }))
 
 }))
 

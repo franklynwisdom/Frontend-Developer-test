@@ -5,7 +5,7 @@ import StyledStar from '../styles/Star.styled'
 const Star = () => {
   return (
     <StyledStar>
-        <img src={star} alt='star image' />
+        <img src={star} alt='star ' />
     </StyledStar>
   )
 }
