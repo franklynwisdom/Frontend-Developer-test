@@ -41,7 +41,7 @@ const Art = () => {
   return (
     <>
       {inputData === ""
-        ? apiData?.data.map((item) => {
+        ? apiData?.data?.map((item) => {
             const {
               title,
               id,

@@ -7,6 +7,7 @@ const dataStore = create((set) => ({
     showMoreData: "",
     pageValue: 2,
     showMoreEventTarget: "",
+    searchEventTarget: "",
     // formattedDate:"",
     updatedInputData: (inputInfo) => set((state) => ({
         inputData: state.inputData = inputInfo
@@ -25,6 +26,9 @@ const dataStore = create((set) => ({
     })),
     updateShowMoreEventTarget: (newShowMoreEventTarget) => set((state) => ({
         showMoreEventTarget: state.showMoreEventTarget = newShowMoreEventTarget
+    })),
+    updateSearchEventTarget: (newSearchEventTarget) => set((state) => ({
+        searchEventTarget: state.searchEventTarget = newSearchEventTarget
     })),
     // updatedFormattedDate: (newDate) => set((state) => ({
     //     formattedDate: state.formattedDate = newDate

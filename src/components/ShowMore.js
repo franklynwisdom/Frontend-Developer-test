@@ -16,6 +16,9 @@ const ShowMore = () => {
     (state) => state.updateShowMoreEventTarget
   );
 
+  const searchEventTarget = dataStore((state) => state.searchEventTarget);
+  console.log(searchEventTarget);
+
   //   console.log(showMoreData);
   //   console.log(apiData?.pagination?.total);
 
@@ -30,7 +33,6 @@ const ShowMore = () => {
       });
   };
   console.log(showMoreData);
-  
 
   //   updatedApiData(showMoreData);
 
@@ -77,7 +79,9 @@ const ShowMore = () => {
 
   return (
     <div>
-      {showMoreEventTarget === "click" ? (
+      {searchEventTarget === "change" ? (
+        <div></div>
+      ) : showMoreEventTarget === "click" ? (
         showMoreData?.data?.map((item) => {
           const {
             title,
@@ -93,7 +97,14 @@ const ShowMore = () => {
           }).format(parsedDate);
 
           return (
-            <div key={id} style={{display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(18rem, 1fr))", justifyContent: "center"}}>
+            <div
+              key={id}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(18rem, 1fr))",
+                justifyContent: "center",
+              }}
+            >
               <img
                 style={{ width: "50px" }}
                 src={thumbnail?.lqip}
@@ -112,18 +123,23 @@ const ShowMore = () => {
       ) : (
         <div></div>
       )}
-      <button
-        onClick={(event) => {
-          exploreMore(event);
-        }}
-        style={{
-          backgroundColor: "red",
-          border: "none",
-          outline: "2px solid yellow",
-        }}
-      >
-        Explore More
-      </button>
+
+      {pageValue !== apiData.pagination.total ? (
+        <button
+          onClick={(event) => {
+            exploreMore(event);
+          }}
+          style={{
+            backgroundColor: "red",
+            border: "none",
+            outline: "2px solid yellow",
+          }}
+        >
+          Explore More
+        </button>
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 };

@@ -10,6 +10,8 @@ const Search = () => {
 
   const updatedFilteredData = dataStore((state) => state.updatedFilteredData);
 
+  const updateSearchEventTarget = dataStore((state) => state.updateSearchEventTarget);
+
   const searchApiUrl = `https://api.artic.edu/api/v1/artworks/search?q=${inputData}`;
 
   //Get search data from the search api
@@ -34,6 +36,7 @@ const Search = () => {
         onChange={(event) => {
           updatedInputData(event.target.value);
           getData();
+          updateSearchEventTarget(event.type)
         }}
         onKeyDown={(event) => {
           filterSearch(event);
