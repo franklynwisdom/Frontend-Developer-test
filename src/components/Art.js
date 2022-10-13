@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React from "react";
 import dataStore from "./ArtistoStore";
+import ShowMore from "./ShowMore";
 
 
 const Art = () => {
@@ -11,18 +12,13 @@ const Art = () => {
   const updatedApiData = dataStore((state) => state.updatedApiData);
 
   const filteredData = dataStore((state) => state.filteredData);
-  console.log(apiData?.pagination?.next_url);
+  // console.log(apiData?.pagination?.next_url);
 
   // function exploreMore(event){
   //   console.log("explore more");
   // }
 
-  const exploreMore = async (paginationUrl) => {
-    await axios.get(paginationUrl).then((response) => {
-      console.log(response.data);
-      console.log(paginationUrl);
-    });
-  };
+  
 
   const apiURL = "https://api.artic.edu/api/v1/artworks";
   const { isLoading, error, data } = useQuery(["artData"], async () => {
@@ -62,7 +58,7 @@ const Art = () => {
             return (
               <div key={id}>
                 <img
-                  style={{ width: "300px" }}
+                  style={{ width: "100px" }}
                   src={thumbnail?.lqip}
                   alt={thumbnail?.alt_text}
                 />
@@ -113,9 +109,7 @@ const Art = () => {
         buttonTextColor="black"
         onClick={exploreMore()}
       /> */}
-      <button onClick={() => {exploreMore(apiData?.pagination?.next_url)}} style={{backgroundColor: "red", border: "none", outline: "2px solid yellow"}}>
-        Explore More
-      </button>
+      <ShowMore/>
     </>
   );
 };
