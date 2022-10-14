@@ -1,5 +1,8 @@
 import axios from "axios";
+import _ from "lodash";
 import React from "react";
+import StyledShowMore from "../styles/ShowMore.styled";
+import StyledShowMoreComponentLinks from "../styles/ShowMoreLinksStyled";
 import dataStore from "./ArtistoStore";
 
 const ShowMore = () => {
@@ -11,20 +14,27 @@ const ShowMore = () => {
   const pageValue = dataStore((state) => state.pageValue);
   const updatePageValue = dataStore((state) => state.updatePageValue);
 
+  const testData = dataStore((state) => state.testData);
+  const updatedTestData = dataStore((state) => state.updatedTestData);
+
   const showMoreEventTarget = dataStore((state) => state.showMoreEventTarget);
   const updateShowMoreEventTarget = dataStore(
     (state) => state.updateShowMoreEventTarget
   );
 
   const searchEventTarget = dataStore((state) => state.searchEventTarget);
-  console.log(searchEventTarget);
+  const test = _.cloneDeep(showMoreData);
+
+  updatedTestData(showMoreData);
+  console.log(testData);
 
   //   console.log(showMoreData);
   //   console.log(apiData?.pagination?.total);
 
   const exploreMore = async (event) => {
+    // const b = ['a', 'v']
+
     updatePageValue(pageValue + 1);
-    console.log(event.type);
     updateShowMoreEventTarget(event.type);
     await axios
       .get(`https://api.artic.edu/api/v1/artworks?page=${pageValue}&limit=10`)
@@ -33,6 +43,15 @@ const ShowMore = () => {
       });
   };
   console.log(showMoreData);
+  //  const m = _.merge(apiData,showMoreData);
+  //  let a = [showMoreData]
+
+  //   useEffect(() => {
+  //     updatedApiData(a);
+  //   }, [a]);
+
+  //   // ;
+  console.log(apiData);
 
   //   updatedApiData(showMoreData);
 
@@ -90,6 +109,7 @@ const ShowMore = () => {
             artist_title,
             timestamp,
             thumbnail,
+            image_id,
           } = item;
           const parsedDate = Date.parse(timestamp);
           const formattedDate = new Intl.DateTimeFormat("en-GB", {
@@ -97,7 +117,8 @@ const ShowMore = () => {
           }).format(parsedDate);
 
           return (
-            <div
+            <StyledShowMoreComponentLinks
+              to={`/arts/${id}`}
               key={id}
               style={{
                 display: "grid",
@@ -105,11 +126,16 @@ const ShowMore = () => {
                 justifyContent: "center",
               }}
             >
-              <img
-                style={{ width: "50px" }}
-                src={thumbnail?.lqip}
-                alt={thumbnail?.alt_text}
-              />
+              {image_id ? (
+                <img
+                  style={{ width: "100px" }}
+                  src={`https://www.artic.edu/iiif/2/${image_id}/full/843,/0/default.jpg
+                  `}
+                  alt={thumbnail?.alt_text}
+                />
+              ) : (
+                <p>Image is not available</p>
+              )}
               <h3>{title}</h3>
               <p>
                 {formattedDate} <br />
@@ -117,26 +143,23 @@ const ShowMore = () => {
                   {artist_title},{place_of_origin}
                 </span>
               </p>
-            </div>
+            </StyledShowMoreComponentLinks>
           );
         })
       ) : (
         <div></div>
       )}
 
-      {pageValue !== apiData.pagination.total ? (
-        <button
-          onClick={(event) => {
-            exploreMore(event);
-          }}
-          style={{
-            backgroundColor: "red",
-            border: "none",
-            outline: "2px solid yellow",
-          }}
-        >
-          Explore More
-        </button>
+      {pageValue !== apiData?.pagination?.total ? (
+        <StyledShowMore>
+          <button
+            onClick={(event) => {
+              exploreMore(event);
+            }}
+          >
+            Explore More
+          </button>
+        </StyledShowMore>
       ) : (
         <div></div>
       )}

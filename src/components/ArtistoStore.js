@@ -8,7 +8,13 @@ const dataStore = create((set) => ({
     pageValue: 2,
     showMoreEventTarget: "",
     searchEventTarget: "",
+    artDetailsData:"",
+    testData: "",
+    imageUrl: "",
     // formattedDate:"",
+    updatedTestData: (c) => set((state) => ({
+        ...state, testData: state.testData = c
+    })),
     updatedInputData: (inputInfo) => set((state) => ({
         inputData: state.inputData = inputInfo
     })),
@@ -30,6 +36,13 @@ const dataStore = create((set) => ({
     updateSearchEventTarget: (newSearchEventTarget) => set((state) => ({
         searchEventTarget: state.searchEventTarget = newSearchEventTarget
     })),
+    updateArtDetailsData: (newArtDetails) => set((state) => ({
+        artDetailsData: state.artDetailsData = newArtDetails
+    })),
+    updateImageUrl: (newImageUrl) => set((state) => ({
+        imageUrl: state.imageUrl = newImageUrl
+    })),
+
     // updatedFormattedDate: (newDate) => set((state) => ({
     //     formattedDate: state.formattedDate = newDate
     // }))

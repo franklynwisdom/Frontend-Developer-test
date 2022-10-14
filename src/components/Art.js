@@ -1,9 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React from "react";
+import StyledArt from "../styles/Art.styled";
+import StyledArtDataContainer from "../styles/ArtDataContainer";
+import StyledShowMoreComponentLinks from "../styles/ShowMoreLinksStyled";
 import dataStore from "./ArtistoStore";
 import ShowMore from "./ShowMore";
-
 
 const Art = () => {
   const inputData = dataStore((state) => state.inputData);
@@ -17,8 +19,6 @@ const Art = () => {
   // function exploreMore(event){
   //   console.log("explore more");
   // }
-
-  
 
   const apiURL = "https://api.artic.edu/api/v1/artworks";
   const { isLoading, error, data } = useQuery(["artData"], async () => {
@@ -36,10 +36,10 @@ const Art = () => {
       </h1>
     );
 
-    
+  //https://www.artic.edu/iiif/2/{identifier}/full/843,/0/default.jpg
 
   return (
-    <>
+    <StyledArt>
       {inputData === ""
         ? apiData?.data?.map((item) => {
             const {
@@ -49,27 +49,49 @@ const Art = () => {
               artist_title,
               timestamp,
               thumbnail,
+              image_id,
             } = item;
             const parsedDate = Date.parse(timestamp);
             const formattedDate = new Intl.DateTimeFormat("en-GB", {
               dateStyle: "full",
             }).format(parsedDate);
 
+            // const getImage = async (event) => {
+
+            //   await axios
+            //     .get(`https://api.artic.edu/api/v1/artworks?page=${pageValue}&limit=10`)
+            //     .then((response) => {
+            //       updateShowMoreData(response?.data);
+
+            //     });
+
+            // };
+
             return (
-              <div key={id}>
-                <img
-                  style={{ width: "100px" }}
-                  src={thumbnail?.lqip}
-                  alt={thumbnail?.alt_text}
-                />
-                <h3>{title}</h3>
-                <p>
-                  {formattedDate} <br />
-                  <span>
-                    {artist_title},{place_of_origin}
-                  </span>
-                </p>
-              </div>
+              <StyledShowMoreComponentLinks to={`/arts/${id}`}>
+                <StyledArtDataContainer key={id}>
+                  {image_id ? (
+                    <img
+                      // style={{ width: "100px" }}
+                      src={`https://www.artic.edu/iiif/2/${image_id}/full/843,/0/default.jpg
+                  `}
+                      alt={thumbnail?.alt_text}
+                    />
+                  ) : (
+                    <p>Image is not available</p>
+                  )}
+
+                  <aside>
+                    <h3>{title}</h3>
+                    <p>
+                      {formattedDate} <br />
+                      <span>
+                        {artist_title},{place_of_origin}
+                      </span>
+                    </p>
+                  </aside>
+                </StyledArtDataContainer>
+              </StyledShowMoreComponentLinks>
             );
           })
         : filteredData?.data?.map((item) => {
@@ -80,26 +102,36 @@ const Art = () => {
               artist_title,
               timestamp,
               thumbnail,
+              image_id,
             } = item;
             const parsedDate = Date.parse(timestamp);
             const formattedDate = new Intl.DateTimeFormat("en-GB", {
               dateStyle: "full",
             }).format(parsedDate);
             return (
-              <div key={id}>
-                <img
-                  style={{ width: "300px" }}
-                  src={thumbnail?.lqip}
-                  alt={thumbnail?.alt_text}
-                />
-                <h3>{title}</h3>
-                <p>
-                  {formattedDate} <br />
-                  <span>
-                    {artist_title},{place_of_origin}
-                  </span>
-                </p>
-              </div>
+              <StyledShowMoreComponentLinks to={`/arts/${id}`} key={id}>
+                <StyledArt>
+                  {image_id ? (
+                    <img
+                      // style={{ width: "100px" }}
+                      src={`https://www.artic.edu/iiif/2/${image_id}/full/843,/0/default.jpg
+                  `}
+                      alt={thumbnail?.alt_text}
+                    />
+                  ) : (
+                    <p>Image is not available</p>
+                  )}
+                  <aside>
+                    <h3>{title}</h3>
+                    <p>
+                      {formattedDate} <br />
+                      <span>
+                        {artist_title},{place_of_origin || "No place of origin"}
+                      </span>
+                    </p>
+                  </aside>
+                </StyledArt>
+              </StyledShowMoreComponentLinks>
             );
           })}
       {/* <Button
@@ -109,8 +141,8 @@ const Art = () => {
         buttonTextColor="black"
         onClick={exploreMore()}
       /> */}
-      <ShowMore/>
-    </>
+      <ShowMore />
+    </StyledArt>
   );
 };
 
