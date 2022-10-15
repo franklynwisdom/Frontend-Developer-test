@@ -1,7 +1,10 @@
 import axios from "axios";
 import _ from "lodash";
 import React from "react";
+import StyledArtDataContainer from "../styles/ArtDataContainer";
+import StyledArtWrapper from "../styles/ArtWrapper";
 import StyledShowMore from "../styles/ShowMore.styled";
+import ShowMoreContainer from "../styles/ShowMoreContainer.styled";
 import StyledShowMoreComponentLinks from "../styles/ShowMoreLinksStyled";
 import dataStore from "./ArtistoStore";
 
@@ -37,7 +40,7 @@ const ShowMore = () => {
     updatePageValue(pageValue + 1);
     updateShowMoreEventTarget(event.type);
     await axios
-      .get(`https://api.artic.edu/api/v1/artworks?page=${pageValue}&limit=10`)
+      .get(`https://api.artic.edu/api/v1/artworks?page=${pageValue}&limit=6`)
       .then((response) => {
         updateShowMoreData(response?.data);
       });
@@ -97,59 +100,64 @@ const ShowMore = () => {
   //   }
 
   return (
-    <div>
-      {searchEventTarget === "change" ? (
-        <div></div>
-      ) : showMoreEventTarget === "click" ? (
-        showMoreData?.data?.map((item) => {
-          const {
-            title,
-            id,
-            place_of_origin,
-            artist_title,
-            timestamp,
-            thumbnail,
-            image_id,
-          } = item;
-          const parsedDate = Date.parse(timestamp);
-          const formattedDate = new Intl.DateTimeFormat("en-GB", {
-            dateStyle: "full",
-          }).format(parsedDate);
+    <ShowMoreContainer>
+      <StyledArtWrapper>
+        {searchEventTarget === "change" ? (
+          <div></div>
+        ) : showMoreEventTarget === "click" ? (
+          showMoreData?.data?.map((item) => {
+            const {
+              title,
+              id,
+              place_of_origin,
+              artist_title,
+              timestamp,
+              thumbnail,
+              image_id,
+            } = item;
+            const parsedDate = Date.parse(timestamp);
+            const formattedDate = new Intl.DateTimeFormat("en-GB", {
+              dateStyle: "full",
+            }).format(parsedDate);
 
-          return (
-            <StyledShowMoreComponentLinks
-              to={`/arts/${id}`}
-              key={id}
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(18rem, 1fr))",
-                justifyContent: "center",
-              }}
-            >
-              {image_id ? (
-                <img
-                  style={{ width: "100px" }}
-                  src={`https://www.artic.edu/iiif/2/${image_id}/full/843,/0/default.jpg
+            return (
+              <StyledShowMoreComponentLinks
+                to={`/arts/${id}`}
+                key={id}
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(18rem, 1fr))",
+                  justifyContent: "center",
+                }}
+              >
+                <StyledArtDataContainer>
+                  {image_id ? (
+                    <img
+                      style={{ width: "100px" }}
+                      src={`https://www.artic.edu/iiif/2/${image_id}/full/843,/0/default.jpg
                   `}
-                  alt={thumbnail?.alt_text}
-                />
-              ) : (
-                <p>Image is not available</p>
-              )}
-              <h3>{title}</h3>
-              <p>
-                {formattedDate} <br />
-                <span>
-                  {artist_title},{place_of_origin}
-                </span>
-              </p>
-            </StyledShowMoreComponentLinks>
-          );
-        })
-      ) : (
-        <div></div>
-      )}
-
+                      alt={thumbnail?.alt_text}
+                    />
+                  ) : (
+                    <p>Image is not available</p>
+                  )}
+                  <aside>
+                    <h3>{title}</h3>
+                    <p>
+                      {formattedDate} <br />
+                      <span>
+                        {artist_title},{place_of_origin}
+                      </span>
+                    </p>
+                  </aside>
+                </StyledArtDataContainer>
+              </StyledShowMoreComponentLinks>
+            );
+          })
+        ) : (
+          <div></div>
+        )}
+      </StyledArtWrapper>
       {pageValue !== apiData?.pagination?.total ? (
         <StyledShowMore>
           <button
@@ -163,7 +171,7 @@ const ShowMore = () => {
       ) : (
         <div></div>
       )}
-    </div>
+    </ShowMoreContainer>
   );
 };
 
