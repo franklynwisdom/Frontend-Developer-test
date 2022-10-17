@@ -5,6 +5,10 @@ const StyledApp = styled.main`
   margin-right: 32px;
   margin-left: 32px;
   margin-top: 32px;
+
+  @media screen and (max-width: 465px) {
+    width: 32rem;
+  }
 `;
 
 export default StyledApp;

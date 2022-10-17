@@ -6,15 +6,15 @@ const StyledShowMore = styled.section`
   left: 32px;
   margin-top: 5rem;
   border-radius: 0 30px;
-  width: 100px;
+  width: 9rem;
   margin: 0 auto;
   margin-top: 10rem;
   button {
     position: relative;
-    width: 100px;
-    min-height: 41px;
+    width: 9rem;
+    min-height: 4rem;
     margin: auto;
-    place-self: center;
+    place-self: center; 
 
     color: black;
     top: -5px;
@@ -23,6 +23,11 @@ const StyledShowMore = styled.section`
     border: none;
     border-radius: 0 30px;
     cursor: pointer;
+  }
+
+  @media screen and (max-width: 465px) {
+    position: relative;
+    top: -8rem;
   }
 `;
 

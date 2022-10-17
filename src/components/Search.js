@@ -30,7 +30,7 @@ const Search = () => {
     if (event.key === "Enter") {
       getData();  
     }
-  } 
+  }  
 
   return (
     <StyledSearch>

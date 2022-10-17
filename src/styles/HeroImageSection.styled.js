@@ -34,13 +34,44 @@ const StyledHeroImageSection = styled.aside`
     border-radius: 20px 200px;
   }
   .heroBackgroundImage {
+    max-width: 600px;
+    min-height: 700px;
+    margin-top: -30rem;
+    position: relative;
+    right: -6rem;
+    top: -3rem;
+    z-index: -1;
+  }
+
+  @media screen and (max-width: 768px) {
+    z-index: 0;
+    }
+ 
+
+  @media screen and (max-width: 465px) {
+    margin-right: 13rem;
+    div {
+   
+    max-width: 420px;
+    margin-right: 3rem;
+
+  }
+    .heroImage{
+      width: 420px;
+    }
+    .heroBackgroundImage {
     max-width: 500px;
     min-height: 600px;
     margin-top: -30rem;
-    position: relative;
-    right: -2rem;
-    z-index: -1;
   }
+  
+  .heroDesign {
+    min-width: 60px;
+    min-height: 60px;
+    
+  }
+}
+   
 `;
 
 export default StyledHeroImageSection;

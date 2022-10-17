@@ -10,6 +10,13 @@ const StyledArt = styled.section`
     margin-top: -22rem;
   }
 
+  @media screen and (max-width: 465px) {
+    .artFooterBackgroundImage{
+      width: 25rem;
+
+    }
+  }
+
 
 `;
 
