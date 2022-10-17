@@ -1,15 +1,15 @@
 import styled from "styled-components";
 
 const StyledArtDataContainer = styled.section`
-  max-width: 336px;
-  min-height: 581px;
+  width: 336px;
+  height: 581px;
 
   background-color: #1A1405;
   border-radius: 180px 0px;
 
   img {
-    max-height: 290.5px;
-    max-width: 336px;
+    height: 290.5px;
+    width: 336px;
     margin-bottom: 0;
     background-color: #110C00;
     border-radius: 180px 0px 0px 0px;

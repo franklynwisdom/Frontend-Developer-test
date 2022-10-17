@@ -2,9 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from "./App";
+import Art from "./components/Art";
 import ArtDetails from "./components/ArtDetails";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
+
 
 
 const router = createBrowserRouter([
@@ -15,6 +17,10 @@ const router = createBrowserRouter([
   {
     path: "/arts/:userId",
     element: <ArtDetails/>
+  },
+  {
+    path: "/arts",
+    element: <Art/>
   }
 ])
 

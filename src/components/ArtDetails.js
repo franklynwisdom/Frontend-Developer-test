@@ -5,9 +5,13 @@ import { AiOutlineShareAlt } from "react-icons/ai";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { useNavigate, useParams } from "react-router";
 import StyledArtDetails from "../styles/ArtDetails.styled";
+import StyledArtDetailsIconContainer from "../styles/ArtDetailsIconContainer.styled";
 import dataStore from "./ArtistoStore";
 import Button from "./Button";
 import Nav from "./Nav";
+
+
+
 
 const ArtDetails = () => {
   const artDetailsData = dataStore((state) => state.artDetailsData);
@@ -31,28 +35,28 @@ const ArtDetails = () => {
   return (
     <StyledArtDetails>
       <Nav />
-      <div style={{ background: "green" }}>
+      <StyledArtDetailsIconContainer>
         <IoIosArrowRoundBack size="3rem" onClick={() => navigate(-1)} />
         <p>
           <AiOutlineShareAlt size="2rem" />
         </p>
-      </div>
+      </StyledArtDetailsIconContainer>
 
-      <div>
+      <div className="artDetailsContainer">
         {artDetailsData?.image_id ? (
           <img
-            style={{ width: "100px" }}
             src={`https://www.artic.edu/iiif/2/${artDetailsData?.image_id}/full/843,/0/default.jpg`}
             alt={artDetailsData?.thumbnail?.alt_text}
+            className="artDetailsImage"
           />
         ) : (
           <p>Image is not available</p>
         )}
 
-        <div>
+        <div className="artDetailsContents">
           <h3>{artDetailsData?.title}</h3>
           <p>{artDetailsData?.medium_display}</p>
-          <div>
+          <div className="artDetailsButtons" onClick={() => navigate(-1)}>
             <Button
               buttonColor="#FBAF00"
               buttonBackgroundColor="white"

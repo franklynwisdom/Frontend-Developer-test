@@ -5,6 +5,11 @@ const StyledNavItems = styled.div`
   display: flex;
   justify-content: space-between;
   color: white;
+
+  p {
+    font-size: 1rem;
+    margin-right: 3.125rem;
+  }
 `;
 
 export default StyledNavItems;

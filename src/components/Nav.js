@@ -11,7 +11,7 @@ const Nav = () => {
     <StyledContainer>
       <div className="navLogoContainer">
         <img src={artistoLogo} alt="Artisto Logo" />
-        <p>Artisto</p>
+        <p className="navTitle">Artisto</p>
       </div>
       <StyledNavItems>
         <p>

@@ -10,13 +10,17 @@ const Search = () => {
 
   const updatedFilteredData = dataStore((state) => state.updatedFilteredData);
 
-  const updateSearchEventTarget = dataStore((state) => state.updateSearchEventTarget);
+  const updateSearchEventTarget = dataStore(
+    (state) => state.updateSearchEventTarget
+  );
 
   const searchApiUrl = `https://api.artic.edu/api/v1/artworks/search?q=${inputData}`;
 
   //Get search data from the search api
   const getData = async () => {
     await axios.get(searchApiUrl).then((response) => {
+      console.log(response);
+      console.log(response.data);   
       updatedFilteredData(response.data);
     });
   };
@@ -24,19 +28,19 @@ const Search = () => {
   //search for data when the enter ker is pressed
   function filterSearch(event) {
     if (event.key === "Enter") {
-      getData();
+      getData();  
     }
-  }
+  } 
 
   return (
     <StyledSearch>
       <input
         type="text"
         placeholder="search"
-        onChange={(event) => {
+        onChange={(event) => { 
           updatedInputData(event.target.value);
           getData();
-          updateSearchEventTarget(event.type)
+          updateSearchEventTarget(event.type);
         }}
         onKeyDown={(event) => {
           filterSearch(event);

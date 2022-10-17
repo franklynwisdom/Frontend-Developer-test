@@ -6,7 +6,6 @@ const StyledButton = styled.div`
   margin-right: 4px;
   margin-top: 8px;
   border-radius: 0 30px;
-  width: 100px;
 
   button{
     position: relative;
@@ -20,6 +19,8 @@ const StyledButton = styled.div`
     border: none;
     border-radius: 0 30px;
     cursor: pointer;
+    background-color: red;
+
   }
 `;
 

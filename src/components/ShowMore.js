@@ -8,6 +8,7 @@ import ShowMoreContainer from "../styles/ShowMoreContainer.styled";
 import StyledShowMoreComponentLinks from "../styles/ShowMoreLinksStyled";
 import dataStore from "./ArtistoStore";
 
+
 const ShowMore = () => {
   const apiData = dataStore((state) => state.apiData);
   const updatedApiData = dataStore((state) => state.updatedApiData);
@@ -133,7 +134,6 @@ const ShowMore = () => {
                 <StyledArtDataContainer>
                   {image_id ? (
                     <img
-                      style={{ width: "100px" }}
                       src={`https://www.artic.edu/iiif/2/${image_id}/full/843,/0/default.jpg
                   `}
                       alt={thumbnail?.alt_text}

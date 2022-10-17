@@ -2,10 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React from "react";
 import backgroundImage from "../images/imageBackgroundFooter.png";
+import placeholder from "../images/placeholder.jpg";
 import StyledArt from "../styles/Art.styled";
 import StyledArtDataContainer from "../styles/ArtDataContainer";
 import StyledArtWrapper from "../styles/ArtWrapper";
 import StyledShowMoreComponentLinks from "../styles/ShowMoreLinksStyled";
+
 
 import dataStore from "./ArtistoStore";
 import ShowMore from "./ShowMore";
@@ -116,7 +118,7 @@ const Art = () => {
               }).format(parsedDate);
               return (
                 <StyledShowMoreComponentLinks to={`/arts/${id}`} key={id}>
-                  <StyledArtDataContainer>
+                  <StyledArtDataContainer >
                     {/* {apiData.data.map((item) => {
                       const {id} =item;
 
@@ -131,7 +133,7 @@ const Art = () => {
                         alt={thumbnail?.alt_text}
                       />
                     ) : (
-                      <p>Image is not available</p>
+                      <img src={placeholder} alt="placeholder" />
                     )}
                     <aside>
                       <h3>{title}</h3>
